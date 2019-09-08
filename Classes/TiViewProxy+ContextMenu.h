@@ -14,11 +14,13 @@
 @interface TiViewProxy (ContextMenu)
 #endif
 
-@property(nonatomic, retain) NSArray<NSDictionary<NSString *, id> *> * _Nonnull actions;
+// NOTE: We need to prefix the properties to not clash with existing proxy properties like window- / button-title
 
-@property(nonatomic, copy) NSString * _Nullable title;
+@property(nonatomic, retain) NSArray<NSDictionary<NSString *, id> *> * _Nonnull __actions;
 
-@property(nonatomic, copy) NSString * _Nullable identifier;
+@property(nonatomic, copy) NSString * _Nullable __title;
+
+@property(nonatomic, copy) NSString * _Nullable __identifier;
 
 - (void)addInteraction:(_Nonnull id)args;
 

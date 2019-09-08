@@ -14,7 +14,7 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 
 @implementation TiViewProxy (ContextMenu)
 
-@dynamic actions, title, identifier;
+@dynamic __actions, __title, __identifier;
 
 #pragma mark Public API's
 
@@ -22,9 +22,9 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 {
   ENSURE_SINGLE_ARG(interaction, NSDictionary);
 
-  self.actions = interaction[@"actions"];
-  self.title = interaction[@"title"] ?: @"";
-  self.identifier = interaction[@"identifier"] ?: nil;
+  self.__actions = interaction[@"actions"];
+  self.__title = interaction[@"title"] ?: @"";
+  self.__identifier = interaction[@"identifier"] ?: nil;
 
   if (@available(iOS 13.0, *)) {
     UIContextMenuInteraction *interaction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
@@ -36,32 +36,32 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 
 #pragma mark Obj-C runtime hacks for category properties
 
-- (void)setActions:(NSArray<NSDictionary<NSString *,id> *> *)actions
+- (void)set__actions:(NSArray<NSDictionary<NSString *,id> *> *)actions
 {
   objc_setAssociatedObject(self, kTiContextMenuPropertyKeyActions, actions, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)setTitle:(NSString *)title
+- (void)set__title:(NSString *)title
 {
   objc_setAssociatedObject(self, kTiContextMenuPropertyKeyTitle, title, OBJC_ASSOCIATION_COPY);
 }
 
-- (void)setIdentifier:(NSString *)identifier
+- (void)set__identifier:(NSString *)identifier
 {
   objc_setAssociatedObject(self, kTiContextMenuPropertyKeyIdentifier, identifier, OBJC_ASSOCIATION_COPY);
 }
 
-- (NSArray<NSDictionary<NSString *,id> *> *)actions
+- (NSArray<NSDictionary<NSString *,id> *> *)__actions
 {
   return objc_getAssociatedObject(self, kTiContextMenuPropertyKeyActions);
 }
 
-- (NSString *)title
+- (NSString *)__title
 {
   return objc_getAssociatedObject(self, kTiContextMenuPropertyKeyTitle);
 }
 
-- (NSString *)identifier
+- (NSString *)__identifier
 {
   return objc_getAssociatedObject(self, kTiContextMenuPropertyKeyIdentifier);
 }
@@ -70,13 +70,13 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction
                                  configurationForMenuAtLocation:(CGPoint)location  API_AVAILABLE(ios(13.0)) {
- return [UIContextMenuConfiguration configurationWithIdentifier:self.identifier
+ return [UIContextMenuConfiguration configurationWithIdentifier:self.__identifier
                                                 previewProvider:nil
                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
    
-   NSMutableArray<UIAction *> *children = [NSMutableArray arrayWithCapacity:self.actions.count];
+   NSMutableArray<UIAction *> *children = [NSMutableArray arrayWithCapacity:self.__actions.count];
    
-   [self.actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+   [self.__actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
      NSString *title = obj[@"title"];
      UIImage *image = [TiUtils toImage:obj[@"image"] proxy:self];
      NSString *identifier = obj[@"identifier"];
@@ -93,7 +93,7 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
      [children addObject:action];
    }];
 
-   return [UIMenu menuWithTitle:self.title children:children];
+   return [UIMenu menuWithTitle:self.__title children:children];
  }];
 }
 
