@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: titanium-context-menu
+author: Hans Knöchel
+license: MIT
+copyright: Copyright (c) 2019 by Hans Knöchel
+
+# these should not be edited
+name: titanium-context-menu
+moduleid: ti.contextmenu
+guid: 09c37883-d40d-4c84-90e6-ca64399f5c8a
+platform: iphone
+minsdk: 8.2.0
