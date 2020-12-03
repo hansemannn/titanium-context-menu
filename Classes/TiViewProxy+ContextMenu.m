@@ -69,7 +69,8 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 #pragma mark UIContextMenuInteractionDelegate
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction
-                                 configurationForMenuAtLocation:(CGPoint)location  API_AVAILABLE(ios(13.0)) {
+                                 configurationForMenuAtLocation:(CGPoint)location API_AVAILABLE(ios(13.0))
+{
  return [UIContextMenuConfiguration configurationWithIdentifier:self.__identifier
                                                 previewProvider:nil
                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
@@ -95,6 +96,16 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
 
    return [UIMenu menuWithTitle:self.__title children:children];
  }];
+}
+
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willDisplayMenuForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0))
+{
+  [self fireEvent:@"preinteraction" withObject:@{}];
+}
+
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willEndForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0))
+{
+  [self fireEvent:@"postinteraction" withObject:@{}];
 }
 
 @end
