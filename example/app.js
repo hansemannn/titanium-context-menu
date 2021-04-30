@@ -38,5 +38,12 @@ btn.addEventListener('menuclick', function(event) {
     alert('Clicked at index: ' + event.index);
 });
 
+var btn2 = Ti.UI.createButton({ image: Ti.UI.createView({ width: 20, height: 20, backgroundColor: 'red' }).toImage(), menu: [{ title: 'Action 1', identifier: '123' }, { title: 'Action 2', identifier: '456', destructive: true }] })
+
+btn2.addEventListener('menuclick', function(event) {
+    alert('Clicked at index: ' + event.index);
+});
+
+win.rightNavButton = btn2;
 win.add([ label, image, separator, btn ]);
 nav.open();
