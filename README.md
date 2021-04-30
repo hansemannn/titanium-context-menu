@@ -12,7 +12,9 @@ Use the `UIPreviewInteraction` API in the Appcelerator Titanium SDK.
 ## How does it work?
 
 Simply include the `ti.contextmenu` module in your tiapp.xml and call the `addInteraction`
-method on any `Ti.UI.View` subclass (e.g. `Ti.UI.ImageView`).
+method on any `Ti.UI.View` subclass (e.g. `Ti.UI.ImageView`). Since version 2.1.0, the `menu` property also
+works for buttons in the navigation bar, e.g. `rightNavButton` or `leftNavButton`, but only if you have either
+a `title` or `image`.
 
 ## Full Example
 

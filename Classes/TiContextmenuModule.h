@@ -7,8 +7,8 @@
 
 #import "TiModule.h"
 
-@interface TiContextmenuModule : TiModule {
+@interface TiContextmenuModule : TiModule
 
-}
++ (void)injectMenuForButton:(id)button andProxy:(TiProxy *)proxy;
 
 @end

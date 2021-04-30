@@ -26,4 +26,39 @@
   return @"ti.contextmenu";
 }
 
++ (void)injectMenuForButton:(id)button andProxy:(TiProxy *)proxy
+{
+  NSArray *actions = proxy.allProperties[@"menu"];
+
+  if (@available(iOS 14.0, *)) {
+    NSMutableArray<UIAction *> *children = [NSMutableArray arrayWithCapacity:actions.count];
+
+    [actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      NSString *title = obj[@"title"];
+      UIImage *image = [TiUtils toImage:obj[@"image"] proxy:proxy];
+      NSString *identifier = obj[@"identifier"];
+      BOOL destructive = [TiUtils boolValue:obj[@"destructive"] def:NO];
+
+      UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier  handler:^(__kindof UIAction * _Nonnull action) {
+        [proxy fireEvent:@"menuclick" withObject:@{ @"index": @(idx) }];
+      }];
+      
+      if (destructive) {
+        action.attributes = UIAlertActionStyleDestructive;
+      }
+      
+      [children addObject:action];
+    }];
+
+    UIMenu *menu = [UIMenu menuWithChildren:children];
+
+    if ([button isKindOfClass:[UIButton class]]) {
+      [(UIButton *)button setMenu:menu];
+      [(UIButton *)button setShowsMenuAsPrimaryAction:YES];
+    } else if ([button isKindOfClass:[UIBarButtonItem class]]) {
+      [(UIBarButtonItem *)button setMenu:menu];
+    }
+  }
+}
+
 @end
