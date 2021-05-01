@@ -37,7 +37,7 @@
       NSURL *url = [TiUtils toURL:image proxy:proxy_];
       nativeImage = [[ImageLoader sharedLoader] loadImmediateStretchableImage:url];
     }
-    self = [super initWithImage:nativeImage style:[self style:proxy_] target:self action:selector];
+    self = [super initWithImage:nativeImage style:(UIBarButtonItemStyle)[self style:proxy_] target:self action:selector];
   } else {
     self = [super initWithTitle:[self title:proxy_] style:(UIBarButtonItemStyle)[self style:proxy_] target:self action:selector];
     self.tintColor = [proxy_ valueForKey:@"color"] ? [TiUtils colorValue:[proxy_ valueForKey:@"color"]].color : [TiUtils colorValue:[proxy_ valueForKey:@"tintColor"]].color;

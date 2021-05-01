@@ -31,26 +31,9 @@
   NSArray *actions = proxy.allProperties[@"menu"];
 
   if (@available(iOS 14.0, *)) {
-    NSMutableArray<UIAction *> *children = [NSMutableArray arrayWithCapacity:actions.count];
-
-    [actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      NSString *title = obj[@"title"];
-      UIImage *image = [TiUtils toImage:obj[@"image"] proxy:proxy];
-      NSString *identifier = obj[@"identifier"];
-      BOOL destructive = [TiUtils boolValue:obj[@"destructive"] def:NO];
-
-      UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier  handler:^(__kindof UIAction * _Nonnull action) {
-        [proxy fireEvent:@"menuclick" withObject:@{ @"index": @(idx) }];
-      }];
-      
-      if (destructive) {
-        action.attributes = UIAlertActionStyleDestructive;
-      }
-      
-      [children addObject:action];
+    UIMenu *menu = [TiContextmenuModule menuFromJavaScriptArray:actions andProxy:proxy handler:^(__kindof UIAction * _Nonnull action, NSUInteger index) {
+      [proxy fireEvent:@"menuclick" withObject:@{ @"index": @(index) }];
     }];
-
-    UIMenu *menu = [UIMenu menuWithChildren:children];
 
     if ([button isKindOfClass:[UIButton class]]) {
       [(UIButton *)button setMenu:menu];
@@ -59,6 +42,30 @@
       [(UIBarButtonItem *)button setMenu:menu];
     }
   }
+}
+
++ (UIMenu *)menuFromJavaScriptArray:(NSArray<NSDictionary<NSString *, id> *> *)actions andProxy:(TiProxy *)proxy handler:(TiActionHandler)handler
+{
+  NSMutableArray<UIAction *> *children = [NSMutableArray arrayWithCapacity:actions.count];
+
+  [actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger index, BOOL * _Nonnull stop) {
+    NSString *title = obj[@"title"];
+    UIImage *image = [TiUtils toImage:obj[@"image"] proxy:proxy];
+    NSString *identifier = obj[@"identifier"];
+    BOOL destructive = [TiUtils boolValue:obj[@"destructive"] def:NO];
+
+    UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier handler:^(__kindof UIAction * _Nonnull action) {
+      handler(action, index);
+    }];
+    
+    if (destructive) {
+      action.attributes = UIAlertActionStyleDestructive;
+    }
+    
+    [children addObject:action];
+  }];
+
+  return [UIMenu menuWithChildren:children];
 }
 
 @end
