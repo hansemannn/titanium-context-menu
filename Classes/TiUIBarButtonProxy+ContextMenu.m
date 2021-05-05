@@ -9,6 +9,7 @@
 #import "TiContextmenuModule.h"
 #import "ImageLoader.h"
 #import "TiBlob.h"
+#import "TiButtonUtil.h"
 #import <objc/runtime.h>
 
 @implementation TiUINavBarButton (ContextMenu)
@@ -26,9 +27,31 @@
   self = [super init];
 
   id image = [proxy_ valueForKey:@"image"];
+  id systemButton = [proxy_ valueForKey:@"systemButton"];
   SEL selector = [proxy_ _hasListeners:@"click"] ? @selector(clicked:) : nil; // This is not missing, it's just not found by the static analyzer
 
-  if (image != nil) {
+  if (systemButton != nil) {
+    UIBarButtonSystemItem type = [TiUtils intValue:systemButton];
+    UIView *button = [TiButtonUtil systemButtonWithType:(int)type];
+    if (button != nil) {
+      if ([button isKindOfClass:[UIActivityIndicatorView class]]) {
+        // we need to wrap our activity indicator view into a UIView that will delegate
+        // to our proxy
+        activityDelegate = [[TiUIView alloc] initWithFrame:button.frame];
+        [activityDelegate addSubview:button];
+        activityDelegate.proxy = (TiViewProxy *)proxy_;
+        button = activityDelegate;
+      }
+      self = [super initWithCustomView:button];
+      self.target = self;
+      self.action = selector;
+      if ([button isKindOfClass:[UIControl class]]) {
+        [(UIControl *)button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+      }
+    } else {
+      self = [super initWithBarButtonSystemItem:type target:self action:selector];
+    }
+  } else if (image != nil) {
     UIImage *nativeImage;
     // The image can be a raw image (e.g. for blobs / system icons)
     if ([image isKindOfClass:[TiBlob class]]) {
