@@ -82,6 +82,7 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
      UIImage *image = [TiUtils toImage:obj[@"image"] proxy:self];
      NSString *identifier = obj[@"identifier"];
      BOOL destructive = [TiUtils boolValue:obj[@"destructive"] def:NO];
+     BOOL enabled = [TiUtils boolValue:obj[@"enabled"] def:YES];
 
      UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier  handler:^(__kindof UIAction * _Nonnull action) {
        [self fireEvent:@"interaction" withObject:@{ @"index": @(idx) }];
@@ -90,6 +91,10 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
      if (destructive) {
        action.attributes = UIAlertActionStyleDestructive;
      }
+       
+       if (!enabled) {
+           action.attributes = UIMenuElementAttributesDisabled;
+       }
      
      [children addObject:action];
    }];
