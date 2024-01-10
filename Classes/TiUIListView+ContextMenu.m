@@ -29,7 +29,7 @@ API_AVAILABLE(ios(13.0))
     return nil;
   }
 
-  return [UIContextMenuConfiguration configurationWithIdentifier:@"123"
+  return [UIContextMenuConfiguration configurationWithIdentifier:@"TiContentMenuConfiguration"
                                                  previewProvider:nil
                                                   actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     if (@available(iOS 14.0, *)) {
