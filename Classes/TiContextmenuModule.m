@@ -60,7 +60,7 @@
     }];
     
     if (destructive) {
-      action.attributes = UIAlertActionStyleDestructive;
+      action.attributes = UIMenuElementAttributesDestructive;
     }
       
     if (!enabled) {
