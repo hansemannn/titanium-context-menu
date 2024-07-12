@@ -14,6 +14,6 @@ typedef void (^TiActionHandler)(__kindof UIAction *action, NSUInteger index);
 
 + (void)injectMenuForButton:(id)button andProxy:(TiProxy *)proxy;
 
-+ (UIMenu *)menuFromJavaScriptArray:(NSArray<NSDictionary<NSString *, id> *> *)actions andProxy:(TiProxy *)proxy handler:(TiActionHandler)handler API_AVAILABLE(ios(14.0));
++ (UIMenu *)menuFromJavaScriptArray:(NSArray<NSDictionary<NSString *, id> *> *)actions andProxy:(TiProxy *)proxy title:(NSString *)title handler:(TiActionHandler)handler;
 
 @end

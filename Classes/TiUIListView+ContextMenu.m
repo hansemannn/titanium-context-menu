@@ -33,7 +33,7 @@ API_AVAILABLE(ios(13.0))
                                                  previewProvider:nil
                                                   actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     if (@available(iOS 14.0, *)) {
-      return [TiContextmenuModule menuFromJavaScriptArray:menu andProxy:self.proxy handler:^(__kindof UIAction *action, NSUInteger index) {
+      return [TiContextmenuModule menuFromJavaScriptArray:menu andProxy:self.proxy title:nil handler:^(__kindof UIAction *action, NSUInteger index) {
         [self.proxy fireEvent:@"menuclick" withObject:@{ @"itemIndex": @(indexPath.row), @"sectionIndex": @(indexPath.section), @"actionIndex": @(index) }];
       }];
     } else {

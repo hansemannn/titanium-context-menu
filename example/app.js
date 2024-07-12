@@ -22,16 +22,15 @@ image.addEventListener('interaction', function(event) {
 image.addInteraction({
 	identifier: 'main_menu',
 	actions: [{
-			identifier: 'edit',
-			image: Ti.UI.iOS.systemImage('plus.circle'),
-			title: 'Edit …'
-		},
-		{
-			identifier: 'delete',
-			title: 'Delete',
-			destructive: true
-		}
-	]
+        identifier: 'edit',
+        image: Ti.UI.iOS.systemImage('plus.circle'),
+        title: 'Edit …'
+    },
+    {
+        identifier: 'delete',
+        title: 'Delete',
+        destructive: true
+    }]
 });
 const separator = Ti.UI.createView({
 	height: 1,
@@ -49,7 +48,13 @@ var btn = Ti.UI.createButton({
 		title: 'Action 2',
 		identifier: '456',
 		destructive: true
-	}]
+	}, {
+        title: 'Sub Menu',
+        menu: [{
+            title: 'Sub Item 1',
+            identifier: 'sub'
+        }]
+    }]
 })
 btn.addEventListener('menuclick', function(event) {
 	alert('Clicked at index: ' + event.index);
@@ -66,8 +71,14 @@ var btn2 = Ti.UI.createButton({
 	}, {
 		title: 'Action 2',
 		identifier: '456',
-		destructive: true
-	}]
+		destructive: true,
+	}, {
+        title: 'Sub Menu',
+        menu: [{
+            title: 'Sub Item 1',
+            identifier: 'sub'
+        }]
+    }]
 })
 btn2.addEventListener('menuclick', function(event) {
 	alert('Clicked at index: ' + event.index);
@@ -99,7 +110,17 @@ function generate10Items() {
 				title: 'Action 2',
 				identifier: '456',
 				destructive: true
-			}]
+			}, {
+                title: 'Sub Menu',
+                menu: [{
+                    title: 'Sub Item 1',
+                    identifier: 'sub1'
+                }, {
+                    title: 'Sub Item 2',
+                    identifier: 'sub2',
+                    destructive: true
+                }]
+            }]
 		}
 	};
 
