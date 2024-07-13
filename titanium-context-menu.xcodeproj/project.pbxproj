@@ -30,6 +30,8 @@
 		3A23B01125791190006098E9 /* TiUIButtonProxy+ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A23B00F25791190006098E9 /* TiUIButtonProxy+ContextMenu.m */; };
 		3A4F67712323CF6D00D71233 /* TiViewProxy+ContextMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4F676F2323CF6D00D71233 /* TiViewProxy+ContextMenu.h */; };
 		3A4F67722323CF6D00D71233 /* TiViewProxy+ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F67702323CF6D00D71233 /* TiViewProxy+ContextMenu.m */; };
+		3A5D00482C43127300A95AE3 /* TiUITableView+ContextMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A5D00462C43127300A95AE3 /* TiUITableView+ContextMenu.h */; };
+		3A5D00492C43127300A95AE3 /* TiUITableView+ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5D00472C43127300A95AE3 /* TiUITableView+ContextMenu.m */; };
 		3A704DFF263DADA6006D4356 /* TiUIListView+ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A704DFD263DADA6006D4356 /* TiUIListView+ContextMenu.m */; };
 		3A704E00263DADA6006D4356 /* TiUIListView+ContextMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A704DFE263DADA6006D4356 /* TiUIListView+ContextMenu.h */; };
 		3AE5307D263BDC3E00E50EA1 /* TiUIBarButtonProxy+ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE5307B263BDC3E00E50EA1 /* TiUIBarButtonProxy+ContextMenu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -57,6 +59,8 @@
 		3A23B00F25791190006098E9 /* TiUIButtonProxy+ContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TiUIButtonProxy+ContextMenu.m"; path = "Classes/TiUIButtonProxy+ContextMenu.m"; sourceTree = "<group>"; };
 		3A4F676F2323CF6D00D71233 /* TiViewProxy+ContextMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TiViewProxy+ContextMenu.h"; path = "Classes/TiViewProxy+ContextMenu.h"; sourceTree = "<group>"; };
 		3A4F67702323CF6D00D71233 /* TiViewProxy+ContextMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "TiViewProxy+ContextMenu.m"; path = "Classes/TiViewProxy+ContextMenu.m"; sourceTree = "<group>"; };
+		3A5D00462C43127300A95AE3 /* TiUITableView+ContextMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TiUITableView+ContextMenu.h"; path = "Classes/TiUITableView+ContextMenu.h"; sourceTree = "<group>"; };
+		3A5D00472C43127300A95AE3 /* TiUITableView+ContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TiUITableView+ContextMenu.m"; path = "Classes/TiUITableView+ContextMenu.m"; sourceTree = "<group>"; };
 		3A704DFD263DADA6006D4356 /* TiUIListView+ContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TiUIListView+ContextMenu.m"; path = "Classes/TiUIListView+ContextMenu.m"; sourceTree = "<group>"; };
 		3A704DFE263DADA6006D4356 /* TiUIListView+ContextMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TiUIListView+ContextMenu.h"; path = "Classes/TiUIListView+ContextMenu.h"; sourceTree = "<group>"; };
 		3AE5307B263BDC3E00E50EA1 /* TiUIBarButtonProxy+ContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TiUIBarButtonProxy+ContextMenu.m"; path = "Classes/TiUIBarButtonProxy+ContextMenu.m"; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				24DD6CF71134B3F500162E58 /* TiContextmenuModule.h */,
 				24DD6CF81134B3F500162E58 /* TiContextmenuModule.m */,
 				3A23B01325791199006098E9 /* View */,
+				3A5D004A2C43127700A95AE3 /* TableView */,
 				3A704E03263DB60B006D4356 /* List View */,
 				3AE53081263BDC4300E50EA1 /* Navigation Bar Button */,
 				3A23B01225791194006098E9 /* Button */,
@@ -144,6 +149,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		3A5D004A2C43127700A95AE3 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				3A5D00462C43127300A95AE3 /* TiUITableView+ContextMenu.h */,
+				3A5D00472C43127300A95AE3 /* TiUITableView+ContextMenu.m */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
 		3A704E03263DB60B006D4356 /* List View */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +187,7 @@
 				3A704E00263DADA6006D4356 /* TiUIListView+ContextMenu.h in Headers */,
 				3A4F67712323CF6D00D71233 /* TiViewProxy+ContextMenu.h in Headers */,
 				24DD6CF91134B3F500162E58 /* TiContextmenuModule.h in Headers */,
+				3A5D00482C43127300A95AE3 /* TiUITableView+ContextMenu.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* TiContextmenuModuleAssets.h in Headers */,
 				3AE5307E263BDC3E00E50EA1 /* TiUIBarButtonProxy+ContextMenu.h in Headers */,
 				3A23B01025791190006098E9 /* TiUIButtonProxy+ContextMenu.h in Headers */,
@@ -253,6 +268,7 @@
 			files = (
 				3A4F67722323CF6D00D71233 /* TiViewProxy+ContextMenu.m in Sources */,
 				24DD6CFA1134B3F500162E58 /* TiContextmenuModule.m in Sources */,
+				3A5D00492C43127300A95AE3 /* TiUITableView+ContextMenu.m in Sources */,
 				3A704DFF263DADA6006D4356 /* TiUIListView+ContextMenu.m in Sources */,
 				3A23B01125791190006098E9 /* TiUIButtonProxy+ContextMenu.m in Sources */,
 				3AE5307D263BDC3E00E50EA1 /* TiUIBarButtonProxy+ContextMenu.m in Sources */,

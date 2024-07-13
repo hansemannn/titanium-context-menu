@@ -85,7 +85,7 @@ static void * kTiContextMenuPropertyKeyTitle = &kTiContextMenuPropertyKeyTitle;
      BOOL enabled = [TiUtils boolValue:obj[@"enabled"] def:YES];
 
      UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier  handler:^(__kindof UIAction * _Nonnull action) {
-       [self fireEvent:@"interaction" withObject:@{ @"index": @(idx) }];
+       [self fireEvent:@"interaction" withObject:@{ @"index": @(idx), @"identifier": action.identifier ?: NSNull.null }];
      }];
      
      if (destructive) {

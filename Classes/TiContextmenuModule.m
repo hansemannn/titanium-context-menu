@@ -14,16 +14,50 @@
 
 #pragma mark Internal
 
-// This is generated for your module, please do not change it
 - (id)moduleGUID
 {
   return @"09c37883-d40d-4c84-90e6-ca64399f5c8a";
 }
 
-// This is generated for your module, please do not change it
 - (NSString *)moduleId
 {
   return @"ti.contextmenu";
+}
+
+- (NSNumber *)MENU_ELEMENT_SIZE_AUTOMATIC
+{
+  if (@available(iOS 17.0, *)) {
+    return @(UIMenuElementSizeAutomatic);
+  } else {
+    return @(-1);
+  }
+}
+
+- (NSNumber *)MENU_ELEMENT_SIZE_SMALL
+{
+  if (@available(iOS 16.0, *)) {
+    return @(UIMenuElementSizeSmall);
+  } else {
+    return @(-1);
+  }
+}
+
+- (NSNumber *)MENU_ELEMENT_SIZE_MEDIUM
+{
+  if (@available(iOS 16.0, *)) {
+    return @(UIMenuElementSizeMedium);
+  } else {
+    return @(-1);
+  }
+}
+
+- (NSNumber *)MENU_ELEMENT_SIZE_LARGE
+{
+  if (@available(iOS 16.0, *)) {
+    return @(UIMenuElementSizeLarge);
+  } else {
+    return @(-1);
+  }
 }
 
 + (void)injectMenuForButton:(id)button andProxy:(TiProxy *)proxy
@@ -32,8 +66,13 @@
 
   if (@available(iOS 14.0, *)) {
     UIMenu *menu = [TiContextmenuModule menuFromJavaScriptArray:actions andProxy:proxy title:nil handler:^(__kindof UIAction * _Nonnull action, NSUInteger index) {
-      [proxy fireEvent:@"menuclick" withObject:@{ @"index": @(index) }];
+      [proxy fireEvent:@"menuclick" withObject:@{ @"index": @(index), @"identifier": action.identifier ?: NSNull.null }];
     }];
+    
+    if (@available(iOS 16.0, *)) {
+      UIMenuElementSize elementSize = [TiUtils intValue:@"preferredElementSize" properties:proxy.allProperties def:UIMenuElementSizeLarge];
+      menu.preferredElementSize = elementSize;
+    }
 
     if ([button isKindOfClass:[UIButton class]]) {
       [(UIButton *)button setMenu:menu];
@@ -59,6 +98,11 @@
     if (menu != nil) {
       UIMenu *nativeMenu = [TiContextmenuModule menuFromJavaScriptArray:menu andProxy:proxy title:title handler:handler];
 
+      if (@available(iOS 16.0, *)) {
+        UIMenuElementSize elementSize = [TiUtils intValue:@"preferredElementSize" properties:obj def:UIMenuElementSizeLarge];
+        nativeMenu.preferredElementSize = elementSize;
+      }
+      
       [nativeChildren addObject:nativeMenu];
       return;
     }
