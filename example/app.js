@@ -1,24 +1,29 @@
-var win = Ti.UI.createWindow({
+const win = Ti.UI.createWindow({
 	layout: 'vertical',
 	title: 'Ti.ContextMenu'
 });
-var nav = Ti.UI.createNavigationWindow({
+
+const nav = Ti.UI.createNavigationWindow({
 	window: win
 });
-var label = Ti.UI.createLabel({
+
+const label = Ti.UI.createLabel({
 	text: 'Long-press the image below:',
 	top: 50
 });
-var image = Ti.UI.createImageView({
+
+const image = Ti.UI.createImageView({
 	top: 20,
 	width: 200,
 	height: 200,
 	borderRadius: 10,
 	image: 'logo-titanium.png'
 });
+
 image.addEventListener('interaction', function(event) {
-	alert('Clicked at index: ' + event.index);
+	alert(`Clicked menu item with identifier = ${event.identifier}`);
 });
+
 image.addInteraction({
 	identifier: 'main_menu',
 	actions: [{
@@ -32,6 +37,7 @@ image.addInteraction({
         destructive: true
     }]
 });
+
 const separator = Ti.UI.createView({
 	height: 1,
 	backgroundColor: '#e0e0e0',
@@ -39,7 +45,8 @@ const separator = Ti.UI.createView({
 	bottom: 40,
 	width: 300
 });
-var btn = Ti.UI.createButton({
+
+const btn = Ti.UI.createButton({
 	title: 'Show button options',
 	menu: [{
 		title: 'Action 1',
@@ -56,10 +63,12 @@ var btn = Ti.UI.createButton({
         }]
     }]
 })
-btn.addEventListener('menuclick', function(event) {
-	alert('Clicked at index: ' + event.index);
+
+btn.addEventListener('menuclick', event => {
+	alert(`Clicked menu item with identifier = ${event.identifier}`);
 });
-var btn2 = Ti.UI.createButton({
+
+const btn2 = Ti.UI.createButton({
 	image: Ti.UI.createView({
 		width: 20,
 		height: 20,
@@ -80,9 +89,11 @@ var btn2 = Ti.UI.createButton({
         }]
     }]
 })
-btn2.addEventListener('menuclick', function(event) {
-	alert('Clicked at index: ' + event.index);
+
+btn2.addEventListener('menuclick', event => {
+	alert(`Clicked menu item with identifier = ${event.identifier}`);
 });
+
 var listView = Ti.UI.createListView({
 	bottom: 100,
 	sections: [Ti.UI.createListSection({
@@ -91,7 +102,7 @@ var listView = Ti.UI.createListView({
 })
 
 listView.addEventListener('menuclick', event => {
-	alert('Clicked at sectionIndex: ' + event.sectionIndex + ', itemIndex: ' + event.itemIndex + ', actionIndex: ' + event.actionIndex);
+	alert('Clicked at sectionIndex: ' + event.sectionIndex + ', itemIndex: ' + event.itemIndex + ', actionIndex: ' + event.actionIndex + ', identifier: ' + event.identifier);
 });
 
 win.rightNavButton = btn2;
