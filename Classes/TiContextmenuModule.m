@@ -89,6 +89,7 @@
 
   [actions enumerateObjectsUsingBlock:^(NSDictionary<NSString *,id> * _Nonnull obj, NSUInteger index, BOOL * _Nonnull stop) {
     NSString *title = obj[@"title"];
+    NSString *subtitle = obj[@"subtitle"];
     UIImage *image = [TiUtils toImage:obj[@"image"] proxy:proxy];
     NSString *identifier = obj[@"identifier"];
     BOOL destructive = [TiUtils boolValue:obj[@"destructive"] def:NO];
@@ -110,6 +111,12 @@
     UIAction *action = [UIAction actionWithTitle:title image:image identifier:identifier handler:^(__kindof UIAction * _Nonnull action) {
       handler(action, index);
     }];
+    
+    if (@available(iOS 15.0, *)) {
+      if (subtitle != nil) {
+        action.subtitle = subtitle;
+      }
+    }
     
     if (destructive) {
       action.attributes = UIMenuElementAttributesDestructive;
